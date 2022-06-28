@@ -1,0 +1,31 @@
+name: Setup PHP/Composer
+description: Standard php/composer setup & dependency install
+inputs:
+  dependencies:
+    required: false
+    description: install dependencies?
+    default: "true"
+runs:
+  using: composite
+  steps:
+    - uses: shivammathur/setup-php@v2
+      with:
+        php-version: 8.1
+        tools: composer
+        extensions: redis, curl
+    - name: Get composer cache directory
+      id: composer-cache
+      run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+      shell: bash
+      if: inputs.dependencies == 'true'
+    - name: Cache dependencies
+      uses: actions/cache@v2
+      with:
+        path: ${{ steps.composer-cache.outputs.dir }}
+        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+        restore-keys: ${{ runner.os }}-composer-
+      if: inputs.dependencies == 'true'
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
+      shell: bash
+      if: inputs.dependencies == 'true'

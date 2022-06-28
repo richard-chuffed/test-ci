@@ -1,0 +1,133 @@
+{
+  "version": 1,
+  "rows": [
+    [
+      {
+        "title": "Row Title",
+        "fields": [
+          {
+            "type": "text",
+            "name": "first_name",
+            "label": "First Name ",
+            "placeholder": "i.e Joe",
+            "classes": "text-pink-500",
+            "required": true,
+            "defaultValue": "",
+            "watch": true,
+            "validationType": "string",
+            "validations": [
+              {
+                "type": "required",
+                "params": ["this field is required"]
+              },
+              {
+                "type": "min",
+                "params": [5, "name cannot be less than 5 characters"]
+              },
+              {
+                "type": "max",
+                "params": [10, "name cannot be more than 10 characters"]
+              }
+            ]
+          },
+          {
+            "type": "text",
+            "name": "last_name",
+            "label": "Last Name ",
+            "placeholder": "i.e Soap",
+            "classes": "text-pink-500",
+            "required": true,
+            "defaultValue": "",
+            "watch": true
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "fields": [
+          {
+            "type": "textarea",
+            "name": "address",
+            "label": "Address",
+            "placeholder": "i.e 64 Avalon Dr, Beverly Hills",
+            "classes": "form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none w-3/3"
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "title": "Radio options title",
+        "fields": [
+          {
+            "type": "radio",
+            "name": "radiobutton",
+            "label": "Radio Option 1",
+            "value": "option1",
+            "required": true,
+            "watch": true
+          },
+          {
+            "type": "radio",
+            "name": "radiobutton",
+            "label": "Radio Option 2",
+            "value": "option2"
+          },
+          {
+            "type": "checkbox",
+            "name": "checkbox",
+            "checked": "checked",
+            "label": "Checkbox",
+            "required": true
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "fields": [
+          {
+            "type": "select",
+            "name": "category",
+            "label": "Select",
+            "defaultValue": "Select",
+            "options": [
+              "Social Enterprise",
+              "Social Welfare",
+              "International Development",
+              "Environment",
+              "Refugees",
+              "Health",
+              "Animals",
+              "Community",
+              "Disability",
+              "Personal",
+              "Cancer",
+              "LGBTI",
+              "Homelessness",
+              "Women",
+              "Education",
+              "Aboriginal",
+              "Disaster Relief",
+              "Sports Clubs"
+            ],
+            "classes": "w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline",
+            "required": true
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "fields": [
+          {
+            "type":"submit",
+            "value": "Save",
+            "classes":  "h-12 px-4 text-md mt-4 text-pink-100 transition-colors duration-150 bg-pink-500 rounded-lg cursor-pointer focus:shadow-outline hover:bg-pink-700"
+          }
+        ]
+      }
+    ]
+  ]
+}

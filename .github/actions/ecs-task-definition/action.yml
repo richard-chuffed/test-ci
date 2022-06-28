@@ -1,0 +1,46 @@
+name: ECS Task definition
+description: Generate an ECS task definition and push it to aws
+inputs:
+  task-name:
+    required: true
+    description: The task to build
+  prefix:
+    required: true
+    description: The naming prefix used for the environment
+  registry:
+    required: true
+    description: The registry this task points to
+  cdn:
+    required: true
+    description: the cdn to use in the environment variable
+  image:
+    required: true
+    description: the image to use for the docker container
+  env:
+    required: true
+    description: the environment directory to load the env vars from
+outputs:
+  definition:
+    description: the task definition as json
+    value: ${{ steps.container.outputs.task-definition }}
+runs:
+  using: composite
+  steps:
+    - name: Build worker task definition
+      shell: bash
+      run: |
+        cat tools/aws/ecs/${{ inputs.task-name }}-task-definition.json | \
+        sed "s/\$prefix/${{ inputs.prefix }}/" | \
+        sed "s;\$envLocal;arn:aws:s3:::chuffed-deployments/environments/${{ inputs.env }}/${{ inputs.prefix }}.env;" | \
+        sed "s;\$taskRole;arn:aws:iam::319996752349:role/ecsTaskExecutionRole;" | \
+        sed "s;\$executionRole;arn:aws:iam::319996752349:role/ecsTaskExecutionRole;" \
+        > tools/${{ inputs.task-name }}-task-definition.json
+    - name: Render Amazon ECS task definition for container
+      id: container
+      uses: aws-actions/amazon-ecs-render-task-definition@v1
+      with:
+        task-definition: tools/${{ inputs.task-name }}-task-definition.json
+        container-name: ${{ inputs.task-name }}
+        image: ${{ inputs.registry }}/chuffed-org:${{ inputs.image }}-${{ github.sha }}
+        environment-variables: |
+          CDN_URL=${{ inputs.cdn }}
