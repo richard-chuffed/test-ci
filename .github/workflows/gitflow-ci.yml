@@ -3,8 +3,7 @@ name: Gitflow Continuous Integration
 on:
   push:
     branches:
-      - develop/*
-
+      - develop
 jobs:
   cancel:
     name: Cancel Previous Runs
