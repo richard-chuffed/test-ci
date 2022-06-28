@@ -23,6 +23,9 @@
   .submit:hover{
     @apply bg-pink-700;
   }
+  .primary{
+    @apply bg-sky-500
+  }
 }
 
 label{
