@@ -11,5 +11,5 @@ const Template = (args) => <Submit {...args} />
 export const Default = Template.bind({});
 Default.args = {
     value: "Press Me",
-    classes: "primary"
+    classes: "secondary"
 }
