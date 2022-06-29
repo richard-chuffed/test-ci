@@ -14,6 +14,7 @@ const Radio = ({
         <input
           type="radio"
           value={inputProps.value}
+          name={name}
           {...register(name)}
           className={classes}
         />
